@@ -1,84 +1,72 @@
-README 
+Visión general
+---------------
+Esta aplicación está organizada en capas y es un front-end construido con Next.js y TypeScript para consumir una API de autores.
 
-la aplicación esta organizada en capas
+Estructura del proyecto (capas)
+--------------------------------
+- app/: define las rutas principales (cada carpeta corresponde a una página de Next.js):
+  - /authors  (lista de autores)
+  - /crear    (formulario para crear/editar autores)
+  - /favoritos (página nueva añadida para el parcial)
+  - /prefs    (preferencias de usuario)
 
-En el pre parcial, yo habia creado un formulario simple y le impmente todo lo del cambiar el idioma de la interfaz,
- header,Context y una prueba de validar campos, realmente no me toco modificar mucho, si no que me toco añadir cosas
- nuevas, porejempo la pagina de favoritos mediante un componente.
+- components/: componentes reutilizables:
+  - `AuthorList` (modificado para el parcial)
+  - `AuthorForm` (modificado para el parcial)
+  - `Header`
 
+- context/: proveedores de estado global:
+  - `AuthorsContext`  — maneja la lista de autores, operaciones CRUD, edición y favoritos.
+  - `UserPrefsContext` — maneja preferencias del usuario (por ejemplo idioma es el la Internacionalización del bono).
 
--app: define las rutas principales (cada uno es una pag)
-                            (/authors,
-                             /crear, 
-                             /favoritos, ESTO ES NUEVO PARA EL PARCIAL EL RESTO YA ESTABA 
-                             /prefs).
+- hooks/: hooks personalizados, para encapsular llamadas a la API y lógica de negocio.
 
+- types/: definiciones TypeScript para los modelos (tipos de autor, etc.).
 
+Parte B — Pruebas unitarias
+---------------------------
+Se eligió la opción de Pruebas unitarias. Se intentó implementar una pequeña suite con dos pruebas principales:
 
--components: contiene los componentes reutilizables como 
-                            AuthorList, MODIFICADO PARA EL PARCIAL
-                            AuthorForm y, MODIFICADO PARA EL PARCIAL
-                            Header.
+1. Render del formulario (implementada):
+    - Verifica que los campos `birthDate`, `description`, `image` y `name` se rendericen correctamente y estén disponibles para interacción.
 
--context: provee AuthorsContext y UserPrefsContext, ambas son encargadas
-de manejar el estado global de autores, edición y favoritos.
+2. Validación de envío (parcial / no completada):
+    - Objetivo: simular un envío con los campos vacíos y comprobar que el botón de crear permanezca deshabilitado. Solo se implementó la primera prueba.
 
--hooks:  API 
+Ubicación de pruebas relevantes:
+- `src/app/prefs/prefs-form.test.tsx` (ejemplo de prueba existente en el proyecto)
 
--types: define los tipos TypeScript para los autores.
+Cómo ejecutar 
+---------------------------------
 
-
-Parte B
-
-Eligí la opción Pruebas unitarias.
-
-Se intento implementar una suite con dos pruebas: 
-
-el render del formulario : valida que los campos birthDate, 
-                                                 description, 
-                                                 image y name 
-                            se rendericen correctamente y estén listos para la interacción.
-
-(ESTA SU FUNCIONO)Validación de envío: simula un envío con campos vacíos y comprueba que el botón de crear permanezca deshabilitado
-
-
--COMO EJECUTAR: 
-
--Clonar el repositorio:
-
-git clone 
-cd next-crud-autores https://github.com/SamuelCharry/bookstore-back.git
+1) Backend (API de autores)
+    - Repositorio (backend): https://github.com/SamuelCharry/bookstore-back.git
+    - Clonar y ejecutar con Docker :
 
 
-instalar las dependecias:
-
-npm install
-
-
-Levantar el back API de autores:
-
-docker build ./ -t bookstore
-
+git clone https://github.com/SamuelCharry/bookstore-back.git
+cd bookstore-back
+docker build . -t bookstore
 docker run -d -p 127.0.0.1:8080:8080 bookstore
 
 
--Para correr Next.js:
+    - La API quedará expuesta en http://127.0.0.1:8080 
 
-Clonar tambien el repositorio: https://github.com/SamuelCharry/preparcial.git
+2) Frontend (esta aplicación)
 
+# desde la raíz del repo 
+npm install
 npm run dev
 
-Acceder en el url local 
+
+3) Ejecutar pruebas unitarias
 
 
--Para Ejecutar pruebas unitarias, tienes que abrir una nueva terminal y luego le das a
-
+# desde la raíz del frontend
 npm test
 
-solo va a funcionar una ya que no alcance a implementar la otra  :(
 
-
-
+    - Nota: Actualmente solo una prueba está completamente implementada :(
 
 
 
