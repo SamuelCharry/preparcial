@@ -1,17 +1,20 @@
-import Link from "next/link";
-import { AuthorsProvider } from "@/context/AuthorsContext";
+import './globals.css';
+import { AuthorsProvider } from '@/context/AuthorsContext';
+import { UserPrefsProvider } from '@/context/UserPrefsContext';
+import Header from '@/components/Header';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <body>
-        <AuthorsProvider>
-          <nav>
-            <Link href="/authors">Autores</Link> | <Link href="/crear">Crear</Link>
-          </nav>
-          {children}
-        </AuthorsProvider>
+        <UserPrefsProvider>
+          <AuthorsProvider>
+            <Header />
+            <main style={{ padding: 12 }}>{children}</main>
+          </AuthorsProvider>
+        </UserPrefsProvider>
       </body>
     </html>
   );
 }
+
